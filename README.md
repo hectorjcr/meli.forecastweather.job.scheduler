@@ -2,7 +2,16 @@
 <p>This microservice is a cron job responsible for sending requests to another microservice to perform climate prediction calculations in a distant galaxy</p>
 
 <hr>
-
+## Description
+<p>
+    In order to use this microservice it is necessary to configure certain 
+    parameter in the <code>application.properties</code> file
+</p>
+<p>
+    <code>
+        forecast.weather.microservice.host=http://localhost:8080/meli/api/hc/forecast/generaterecords
+    </code>
+</p>
 ## Development tools
 <ul>
     <li>
