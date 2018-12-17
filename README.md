@@ -20,11 +20,11 @@ parameter in the <code>application.properties</code> file</p>
   <code>forecast.weather.microservice.initday=0</code><br/>
 </li>
 <li>
- Forecasting end day<br/>
+ Forecasting end day (10 predictions years)<br/>
   <code>forecast.weather.microservice.endday=3650</code><br/>
 </li>
 <li>
-    cron config<br>
+    cron config string set up in order to trigger a weather prediction every day at midnight<br>
     <code>forecast.weather.microservice.cron.string=0 0 0 * * ?</code>
 </li>
 <hr>
