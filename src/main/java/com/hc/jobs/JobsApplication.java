@@ -14,7 +14,7 @@ public class JobsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(JobsApplication.class, args);
-        ROOT_LOGGER.log(Level.INFO, "[X_ X] Iniciando la aplicación [X _ X]");        
+        ROOT_LOGGER.log(Level.INFO, "[X _ X] Sarting Job Scheduler microservice [X _ X]");
         
     }
 

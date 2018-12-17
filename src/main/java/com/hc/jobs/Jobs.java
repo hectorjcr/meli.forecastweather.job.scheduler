@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hc.jobs;
 
 import java.io.PrintWriter;
@@ -17,11 +12,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 /**
- *<title> MICROSERVICIO JOB</title>
+ *MICROSERVICIO JOB
  * <p>Realiza una peticion al microservicio de predicciones para calcular el
  * clima de la galaxia desde el momento actual hasta 10 años</p>
  * 
- * @author Hector
+ * @author Hector Contreras
  */
 @Component
 public class Jobs {
@@ -59,6 +54,13 @@ public class Jobs {
      *<p> Job que se dispara con una frecuencia determinada por la propiedad
      * forecast.weather.microservice.cron.string del Application.properties
      * </p>
+     * <p>Realiza un request al microservicio de calculo de predicción de clima, 
+     * espera un codigo HTTP 200 y un mensaje de operación exitosa en caso de 
+     * exito</p>
+     * <p>Recibe un código HTTP 404  not found en caso de haber conexion pero no
+     * estar disponible el recurso
+     * </p>
+     * <p>recibe un mensaje de error que es atrapado en caso de no haber conexion</p>
      */
     //@Scheduled(fixedRate = 15000) para testing cada 15 Seg.
     @Scheduled(cron = "${forecast.weather.microservice.cron.string}") //prod env todos los dias a las 00:00:00
