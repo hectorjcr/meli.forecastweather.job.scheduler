@@ -13,7 +13,7 @@
     </li>
 </ul>
 <hr>
-## Compilation Command
+### Compilation Command
 <ul>
     <li>
         <code>mvn clean install </code> Plain maven clean and install
