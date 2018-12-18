@@ -41,11 +41,5 @@ parameter in the <code>application.properties</code> file</p>
 </ul>
 <hr>
 
-## Compilation Command
 
-<ul>
-    <li>
-        <code>mvn clean install </code> Plain maven clean and install
-    </li>
-</ul>
 
