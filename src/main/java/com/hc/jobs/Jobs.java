@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
  * clima de la galaxia desde el momento actual hasta 10 años</p>
  * 
  * @author Hector Contreras
+ * @version 1.0
  */
 @Component
 public class Jobs {

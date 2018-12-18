@@ -27,6 +27,7 @@ parameter in the <code>application.properties</code> file</p>
     cron config string set up in order to trigger a weather prediction every day at midnight<br>
     <code>forecast.weather.microservice.cron.string=0 0 0 * * ?</code>
 </li>
+</ul>
 <hr>
 
 ## Development tools
