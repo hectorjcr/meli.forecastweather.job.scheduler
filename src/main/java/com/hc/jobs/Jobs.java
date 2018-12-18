@@ -63,8 +63,8 @@ public class Jobs {
      * </p>
      * <p>recibe un mensaje de error que es atrapado en caso de no haber conexion</p>
      */
-    //@Scheduled(fixedRate = 15000) para testing cada 15 Seg.
-    @Scheduled(cron = "${forecast.weather.microservice.cron.string}") //prod env todos los dias a las 00:00:00
+    @Scheduled(fixedRate = 86400000) // para testing cada 15 Seg.
+    //@Scheduled(cron = "${forecast.weather.microservice.cron.string}") //prod env todos los dias a las 00:00:00
     public void performTask(){
         if(Integer.parseInt(initDay) == 0)
             l.log(Level.INFO, "###########     Iniciando CRON JOBS   #############");        
