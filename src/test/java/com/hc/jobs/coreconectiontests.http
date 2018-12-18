@@ -1,0 +1,16 @@
+### Prueba para generar los registros climaticos desde un dia de inicio hasta uno al final
+### https://meli-forecast-core-ms.herokuapp.com/meli/api/hc/forecast/generaterecords/{initDay}/{endDay}
+GET https://meli-forecast-core-ms.herokuapp.com/api/forecast/generaterecords/1/5
+Accept: application/json
+
+### Prueba para probar la conexion con el microservicio core de que genera los calculos
+### GET https://meli-forecast-core-ms.herokuapp.com/meli/api/hc/forecast/fakefordebugg/{fromday}/{atDay}
+GET https://meli-forecast-core-ms.herokuapp.com/api/forecast/fakefordebugg/1/5
+Accept: application/json
+
+### Devuelve el clima de la galaxia de un dia especifico a partir de calculo (NO DB)
+### GET https://meli-forecast-core-ms.herokuapp.com/meli/api/hc/forecast/dayforecast/{id}
+GET https://meli-forecast-core-ms.herokuapp.com/api/forecast/dayforecast/5
+Accept: text/plain
+
+###
