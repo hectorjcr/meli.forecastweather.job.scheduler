@@ -17,7 +17,7 @@ public class JobsApplication {
     
     private static Logger ROOT_LOGGER = Logger.getLogger(JobsApplication.class.getName());
 
-    @Bean ("threadPoolTaskExecutor")
+    @Bean("threadPoolTaskExecutor")
     public TaskExecutor getAsyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(20);
