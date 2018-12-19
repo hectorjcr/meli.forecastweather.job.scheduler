@@ -9,11 +9,11 @@ parameter in the <code>application.properties</code> file</p>
 <ul>
 <li>
  To set up the remote microservice host url<br/>
-  <code>forecast.weather.microservice.host=http://localhost:8080/meli/api/hc/forecast/generaterecords</code><br/>
+  <code>forecast.weather.microservice.host=https://meli-forecast-core-ms.herokuapp.com/api/forecast/generaterecords</code><br/>
 </li>
 <li>
  Fake url for testing comunication between this microservice and the forecast weather microservice<br/>
-  <code>forecast.weather.microservice.fake.host =http://localhost:8080/meli/api/hc/forecast/fakefordebugg</code><br/>
+  <code>forecast.weather.microservice.fake.host =https://meli-forecast-core-ms.herokuapp.com/api/forecast/fakefordebugg</code><br/>
 </li>
 <li>
  Forecasting initial day<br/>
@@ -29,7 +29,14 @@ parameter in the <code>application.properties</code> file</p>
 </li>
 </ul>
 <hr>
-
+CRON JOB SCHEDULER 
+	Direccion del cron job en heroku
+		https://jobschedulermicroservice.herokuapp.com
+	Repositorio en GitHub para clonar el microservicio
+		https://github.com/hectorjcr/meli.forecastweather.job.scheduler.git
+	Direccion en GitHub para visualizar el codigo
+		hectorjcr/meli.forecastweather.job.scheduler
+		Esta es desplegada desde heroku a traves de un pipeline
 ## Development tools
 <ul>
     <li>
