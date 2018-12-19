@@ -1,7 +1,8 @@
 # meli.forecastweather.job.scheduler
+---
 Este microservicio es un cron job responsable de enviar peticiones a otro microservicio para realizar los calculos de pronostico del clima en una galaxia lejana
 ---
-## Descricion
+## Descripcion
 Para usar este microservicio es necesario configurar cieros parametros en el archivo application.properties
 
 * La API request enviada por el scheduler al nucleo de calculos es la siguiente
