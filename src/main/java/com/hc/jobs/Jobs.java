@@ -2,11 +2,12 @@ package com.hc.jobs;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -25,7 +26,7 @@ public class Jobs {
      * Instancia un RestTemplate que realizara las peticiones al microservicio
      * de calculo de prediciones de clima
      */
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
     /**
      * Logger para las salidas de consola
      */
@@ -48,9 +49,12 @@ public class Jobs {
      *<p> Parametro de dia fin para los calculos</p>
      */
     @Value(value = "${forecast.weather.microservice.endday}")
-    private String endDay="";    
-    
-    
+    private String endDay="";
+
+    public Jobs(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
+
     /**
      *<p> Job que se dispara con una frecuencia determinada por la propiedad
      * forecast.weather.microservice.cron.string del Application.properties
@@ -63,28 +67,53 @@ public class Jobs {
      * </p>
      * <p>recibe un mensaje de error que es atrapado en caso de no haber conexion</p>
      */
-    @Scheduled(fixedRate = 86400000) // tasa de disparo fijada a un día
-    //@Scheduled(cron = "${forecast.weather.microservice.cron.string}") //prod env todos los dias a las 00:00:00
+    //@Scheduled(fixedRate = 86400000) // para testing cada 15 Seg.
+    @Scheduled(cron = "${forecast.weather.microservice.cron.string}") //prod env todos los dias a las 00:00:00
     public void performTask(){
+        l.log(Level.INFO,"${forecast.weather.microservice.cron.string}");
         if(Integer.parseInt(initDay) == 0)
-            l.log(Level.INFO, "###########     Iniciando CRON JOB   #############");        
+            l.log(Level.INFO, "###########     Iniciando CRON JOBS por primera vez   #############");
+        l.log(Level.INFO, "Iniciado");
         String suffix = "/"+initDay+"/"+endDay;
         String uri = prefix + suffix;        
         l.log(Level.INFO,"Request a "+ uri);
-        //TODO verificando performance entre microservicios en caso de demora en el response del nucleo
         try{
-        String result = restTemplate.getForObject(uri.toString(), String.class);
-        l.log(Level.INFO,result);
+            l.log(Level.INFO, "llamando metodo asincrono");
+            CompletableFuture<String> result = starterConnection(Integer.parseInt(initDay),Integer.parseInt(endDay),uri);
+            l.log(Level.INFO,result.toString());
+            l.log(Level.INFO, "Metodo asincrono ejecutado");
         }catch(Exception e){
-            l.log(Level.SEVERE,() -> {
-                e.getMessage();                
-            }
-                    );
+            l.log(Level.SEVERE,e.getMessage());
         }
         int iday = Integer.parseInt(initDay)+1;
         initDay = Integer.toString(iday);
         int eday = Integer.parseInt(endDay)+1;
         endDay = Integer.toString(eday);
+    }
+
+    /**
+     * Método asincrono que se encarga de hacer la petición
+     * de calculos a la API del microservicio core
+     *
+     * @param init dia inicial
+     * @param end dia final
+     * @param uri url del microservicio core
+     * @return estado de la tarea (completada)
+     * @throws InterruptedException captura el error en caso de alguna interrupcion
+     */
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<String> starterConnection(int init, int end, String uri) throws InterruptedException{
+        String result="";
+        l.log(Level.INFO, "iniciando task");
+        try {
+            result = restTemplate.getForObject(uri,String.class);
+            l.log(Level.INFO, "resultado del task");
+            l.log(Level.INFO, result);
+        }catch (Exception e){
+            l.log(Level.SEVERE, e.getMessage());
+        }
+        l.log(Level.INFO, "saliendo del task");
+        return CompletableFuture.completedFuture(result);
     }
     
     /**
@@ -101,5 +130,5 @@ public class Jobs {
         e.printStackTrace(pWriter);
         return sWriter.toString();
     }
-    
 }
+
