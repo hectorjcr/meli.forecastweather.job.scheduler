@@ -63,20 +63,21 @@ public class Jobs {
      * </p>
      * <p>recibe un mensaje de error que es atrapado en caso de no haber conexion</p>
      */
-    @Scheduled(fixedRate = 86400000) // para testing cada 15 Seg.
+    @Scheduled(fixedRate = 86400000) // tasa de disparo fijada a un día
     //@Scheduled(cron = "${forecast.weather.microservice.cron.string}") //prod env todos los dias a las 00:00:00
     public void performTask(){
         if(Integer.parseInt(initDay) == 0)
-            l.log(Level.INFO, "###########     Iniciando CRON JOBS   #############");        
+            l.log(Level.INFO, "###########     Iniciando CRON JOB   #############");        
         String suffix = "/"+initDay+"/"+endDay;
         String uri = prefix + suffix;        
         l.log(Level.INFO,"Request a "+ uri);
+        //TODO verificando performance entre microservicios en caso de demora en el response del nucleo
         try{
         String result = restTemplate.getForObject(uri.toString(), String.class);
         l.log(Level.INFO,result);
         }catch(Exception e){
             l.log(Level.SEVERE,() -> {
-                return e.getMessage();                
+                e.getMessage();                
             }
                     );
         }
